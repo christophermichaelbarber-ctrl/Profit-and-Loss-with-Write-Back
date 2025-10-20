@@ -1,0 +1,17 @@
+role 'Legal Entity'
+	modelPermission: read
+
+	tablePermission 'Legal Entity' = ```
+			var currentloggedin = 
+			
+			LOOKUPVALUE(
+			    'Security Legal Entity'[Legal Entity Key],
+			    'Security Legal Entity'[User Name],
+			    USERPRINCIPALNAME())
+			
+			
+			return PATHCONTAINS('Legal Entity'[Path], currentloggedin)
+			```
+
+	annotation PBI_Id = 2af0e950d8584489b3ba03729d026019
+

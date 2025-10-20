@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SQLDatabase",
+    "displayName": "Profit and Loss Write Back SQL Database"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3557bbbd-8029-889d-4d3a-3c74bd37ef3d"
+  }
+}

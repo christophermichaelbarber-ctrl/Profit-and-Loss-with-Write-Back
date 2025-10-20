@@ -1,0 +1,264 @@
+table 'Legal Entity'
+	lineageTag: 47244824-ca17-413f-9e50-6294c9bbd359
+
+	measure '_Legal entity show' = ```
+			
+			
+			var legalentityinscope = [_Legal entity in scope] 
+			var legalentityisblank  = [_Legal Entity is blank]
+			var result = if(legalentityisblank > legalentityinscope ,1,0)
+			
+			return result
+			```
+		formatString: 0
+		isHidden
+		lineageTag: 7d7dc2d6-f67d-47ef-95ca-7c99cc544179
+
+	measure '_Legal entity in scope' = ```
+			
+			
+			var l1inscope = if(ISINSCOPE('Legal Entity'[Legal entity level 1 name]),1)
+			var l2inscope = if(ISINSCOPE('Legal Entity'[Legal entity level 2 name]),2)
+			var l3inscope = if(ISINSCOPE('Legal Entity'[Legal entity level 3 name]),3)
+			var l4inscope = if(ISINSCOPE('Legal Entity'[Legal entity level 4 name]),4)
+			//var l5inscope = if(ISINSCOPE('Legal Entity'[Legal entity level 5 name]),5)
+			
+			var result = COALESCE(  l3inscope ,l2inscope,l1inscope)
+			
+			return result
+			
+			
+			
+			
+			```
+		formatString: 0
+		isHidden
+		lineageTag: 47df48bd-6a32-4e47-bdb8-712e6c93bcf6
+
+	measure '_Legal Entity is blank' = ```
+			
+			
+			var le1 = if(isblank(max('Legal Entity'[Legal entity level 1])), blank(), 1)
+			var le2 = if(isblank(max('Legal Entity'[Legal entity level 2])), blank(), 2)
+			
+			var le3 = if(isblank(max('Legal Entity'[Legal entity level 3])), blank(), 100)
+			//var le4 = if(isblank(min('Legal Entity'[Legal entity level 4])), blank(), 4)
+			//var le5 = if(isblank(min('Legal Entity'[Legal entity level 5])), blank(), 5)
+			
+			var  result = COALESCE(le3, le2,le1)
+			
+			
+			
+			
+			return result
+			
+			```
+		formatString: 0
+		isHidden
+		lineageTag: 048f4e57-d98e-45ba-be93-b3f27bd5e8c0
+
+	column 'Legal Entity Key'
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		lineageTag: 0fa054f5-36d4-454e-ab86-84f039f3ff1f
+		summarizeBy: none
+		sourceColumn: Legal Entity Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity name'
+		dataType: string
+		lineageTag: 71ff69cb-8968-4ac0-bd24-557b2844de5a
+		summarizeBy: none
+		sourceColumn: Legal entity name
+		sortByColumn: 'Legal Entity Sort Order'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal Entity Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 55fb7842-5822-4b66-bacb-80dc624e799b
+		summarizeBy: sum
+		sourceColumn: Legal Entity Sort Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Group
+		dataType: string
+		isHidden
+		lineageTag: 122cc631-a767-49de-9b20-945125037194
+		summarizeBy: none
+		sourceColumn: Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: e19de23c-1451-400c-9b57-d382140c7821
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: cbecd67b-1a16-4256-812f-852508733b57
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Child
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 13a30318-b9d5-4f3c-813b-6cfa1cd2683c
+		summarizeBy: sum
+		sourceColumn: Child
+
+		annotation SummarizationSetBy = Automatic
+
+	column Parent
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 45fe1257-4532-4c1b-9dc3-f57bf70bd2c2
+		summarizeBy: sum
+		sourceColumn: Parent
+
+		annotation SummarizationSetBy = Automatic
+
+	column Path = path('Legal Entity'[Child],'Legal Entity'[Parent])
+		isHidden
+		lineageTag: 37b0aaa3-782c-4385-ad98-88e3d2fafa37
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 1' = PATHITEM('Legal Entity'[Path],1)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2fd6fefc-ad88-47ac-bd9a-7580adae6f9b
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 2' = ```
+			
+			
+			var l1 = int(PATHITEM('Legal Entity'[Path],1))
+			var l2 = int(PATHITEM('Legal Entity'[Path],2))
+			
+			var cl = COALESCE(l2,l1)
+			
+			return l2 
+			
+			
+			```
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 40fde0e2-1dce-44ea-9637-7764c0b97f4e
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 3' = PATHITEM('Legal Entity'[Path],3)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1387c703-71ee-4864-acbf-54c1eb7386c1
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 4' = PATHITEM('Legal Entity'[Path],4)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6b82cb58-79b9-41d5-b2fe-488c7b6e55c5
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 5' = PATHITEM('Legal Entity'[Path],5)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e20377bf-ca21-4b0b-8859-b2d91f33064d
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 1 name' = lookupvalue('Legal Entity'[Legal entity name],'Legal Entity'[Legal Entity Key], 'Legal Entity'[Legal entity level 1])
+		isHidden
+		lineageTag: 2e09c41c-9bbb-4242-aebb-ce92967a7a48
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 2 name' = ```
+			
+			 
+			lookupvalue('Legal Entity'[Legal entity name],'Legal Entity'[Legal Entity Key], 'Legal Entity'[Legal entity level 2])
+			
+			
+			```
+		isHidden
+		lineageTag: cab7d7e4-c66f-4939-a053-7c759d7daa54
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 3 name' = lookupvalue('Legal Entity'[Legal entity name],'Legal Entity'[Legal Entity Key], 'Legal Entity'[Legal entity level 3])
+		isHidden
+		lineageTag: ca31405c-9b1d-494d-bbc0-5af06eccd4ae
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 4 name' = lookupvalue('Legal Entity'[Legal entity name],'Legal Entity'[Legal Entity Key], 'Legal Entity'[Legal entity level 4])
+		isHidden
+		lineageTag: baadd813-bd5c-42f5-ba0b-8288dc861f8d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal entity level 5 name' = lookupvalue('Legal Entity'[Legal entity name],'Legal Entity'[Legal Entity Key], 'Legal Entity'[Legal entity level 5])
+		isHidden
+		lineageTag: a9d0f292-b5e3-4234-945f-e697a97952a1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Legal Entity' = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("hZJPc4IwEMW/CsPZg5F/enRsFUd7qfXkeEghQzOFhAHstN++u4ngVoFewszbfT/mJe90cpk7cVe6KLn6cWKdp1JlNUgobyp9KeF7PCzhXBaikglvh+55cnJnxLzXmawbmdTO8QDybAwwMxAkeITwKhouc2erEhC9Mb9nGOj3H/0rrnjKQfcJohMJxTckpASPlBfxLRMNekAonUgoQUcJCWUtFVeJcPZNCmpIw+zgeL5UuhTXib2JiLi36kvUTSFUg3+IBt2RIaB7TtxvIvm4/ng+aJ0bO1oXvY9o/YtB/6LzsykBPMlMNjx3NsV7jNGmBLARVQE7lGLmNgFjPZh1hbeIi7SQnXrjsBuHlnJZS/6n1rSWBxB5qSsE4GI7t+/BvHsO3iuOaTW3KjXG1u9ZiAH494BrKXCFdjPWKnN2cBCOTzi0nbcHajeDfxIFhBT2ktoMLBwJFlqWwUS9GIjx2cZg0Qgqsrzz+Rc=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Legal Entity Key" = _t, #"Legal entity name" = _t, #"Legal Entity Sort Order" = _t, Group = _t, Country = _t, Region = _t, Child = _t, Parent = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Legal Entity Key", Int64.Type}, {"Legal entity name", type text}, {"Legal Entity Sort Order", Int64.Type}, {"Group", type text}, {"Country", type text}, {"Region", type text}, {"Child", Int64.Type}, {"Parent", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

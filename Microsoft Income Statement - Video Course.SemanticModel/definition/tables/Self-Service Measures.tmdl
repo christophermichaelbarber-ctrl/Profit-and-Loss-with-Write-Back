@@ -1,0 +1,542 @@
+table 'Self-Service Measures'
+	isHidden
+	lineageTag: 6d47015d-86ef-4a29-b488-343a1b5a0246
+
+	column 'Self-Service Measures'
+		lineageTag: d0ffb4d8-e133-423e-ab15-1fe5ab7b1428
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Self-Service Measures Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Self-Service Measures Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Self-Service Measures Fields'
+		isHidden
+		lineageTag: f69bd57b-403c-4d85-a855-5fe1c8a1b26d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Self-Service Measures Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Self-Service Measures Order'
+		isHidden
+		formatString: 0
+		lineageTag: 7e6c01ad-3ed2-4606-b4dd-291e182fdb1c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Self-Service Measures' = calculated
+		mode: import
+		source = ```
+				VAR result =
+				            {
+				                ( "Act", NAMEOF( [View A1 A Act] ), 1 ),
+				                ( "PY", NAMEOF( [View A1 B PY] ), 1 ),
+				                ( "Fcst TD", NAMEOF( [View A1 C Fcst TD] ), 1 ),
+				                ( "Fcst BU", NAMEOF( [View A1 D Fcts BU] ), 1 ),
+				                ( "Pln", NAMEOF( [View A1 E Pln] ), 1 ),
+				                ( "        ", NAMEOF( [View A1 F] ), 1 ),
+				                ( "vs PY", NAMEOF( [View A1 G vs PY] ), 1 ),
+				                ( "vs Fcst TD", NAMEOF( [View A1 H vs Fcst TD] ), 1 ),
+				                ( "vs Fcst BU", NAMEOF( [View A1 I vs Fcst BU] ), 1 ),
+				                ( "vs Pln", NAMEOF( [View A1 J vs Pln] ), 1 ),
+				                ( "        ", NAMEOF( [View A1 K] ), 1 ),
+				                ( "vs PY, %", NAMEOF( [View A1 L vs PY, %] ), 1 ),
+				                ( "vs Fcst TD, %", NAMEOF( [View A1 M vs Fcst TD, %] ), 1 ),
+				                ( "vs Fcst BU, %", NAMEOF( [View A1 N vs Fcst BU, %] ), 1 ),
+				                ( "vs Pln, %", NAMEOF( [View A1 O vs Pln, %] ), 1 ),
+				                
+				                
+				                
+				                ( "Act @py fx", NAMEOF( [View A2 A Act @PY] ), 2 ),
+				                ( "Act @fcst fx", NAMEOF( [View A2 B Act @Fcst] ), 2 ),
+				                ( "Act @plan fx", NAMEOF( [View A2 C Act @Plan] ), 2 ),    
+				                ( "PY", NAMEOF( [View A2 D PY] ), 2 ),
+				                ( "Fcst TD", NAMEOF( [View A2 E Fcst TD] ), 2 ),
+				                ( "Fcst BU", NAMEOF( [View A2 F Fcts BU] ), 2 ),
+				                ( "Pln", NAMEOF( [View A2 G Pln] ), 2 ),
+				                ( "        ", NAMEOF( [View A2 H] ), 2 ),
+				                ( "vs PY", NAMEOF( [View A2 I vs PY] ), 2 ),
+				                ( "vs Fcst TD", NAMEOF( [View A2 J vs Fcst TD] ), 2 ),
+				                ( "vs Fcst BU", NAMEOF( [View A2 K vs Fcst BU] ), 2 ),
+				                ( "vs Pln", NAMEOF( [View A2 L vs Pln] ), 2 ),
+				                ( "        ", NAMEOF( [View A2 M] ),2 ),
+				                ( "vs PY, %", NAMEOF( [View A2 N vs PY, %] ), 2 ),
+				                ( "vs Fcst TD, %", NAMEOF( [View A2 O vs Fcst TD, %] ), 2 ),
+				                ( "vs Fcst BU, %", NAMEOF( [View A2 P vs Fcst BU, %] ), 2 ),
+				                ( "vs Pln, %", NAMEOF( [View A2 Q vs Pln, %] ), 2),
+				                
+				                
+				                
+				                ( "Act @act fx", NAMEOF( [View A3 A Act @Act Fx] ), 3 ),            
+				                ( "Act @py fx", NAMEOF( [View A3 B Act @py Fx]), 3 ),        
+				                ( "Act @fcst fx", NAMEOF( [View A3 C Act @Fcst fx] ), 3 ),            
+				                ( "Act @plan fx", NAMEOF( [View A3 D Act @Plan Fx]), 3 ),    
+				                
+				                ( "        ", NAMEOF( [View A3 E] ), 3 ),
+				                ( "vs PY", NAMEOF( [View A3 F vs PY] ), 3 ),
+				                ( "vs Fcst", NAMEOF( [View A3 G vs Fcst] ),3 ),    
+				                ( "vs Pln", NAMEOF( [View A3 H vs Pln] ), 3 ),
+				                
+				                ( "        ", NAMEOF( [View A3 I] ),3 ),
+				                ( "vs PY, %", NAMEOF( [View A3 J vs PY, %] ), 3 ),   
+				                ( "vs Fcst, %", NAMEOF( [View A3 K vs Fcst, %] ), 3),
+				                ( "vs Pln, %", NAMEOF( [View A3 L vs Pln, %] ), 3 ),
+				                
+				                
+				                
+				                          
+				                
+				                
+				                
+				                
+				                
+				                ( "Act", NAMEOF( [View B1 A Act] ), 4 ),
+				                ( "PY", NAMEOF( [View B1 B PY] ), 4 ),
+				                ( "Fcst TD", NAMEOF( [View B1 C Fcst TD] ), 4 ),
+				                ( "Fcst BU", NAMEOF( [View B1 D Fcts BU] ), 4 ),
+				                ( "Pln", NAMEOF( [View B1 E Pln] ), 4 ),
+				                ( "        ", NAMEOF( [View B1 F] ), 4 ),
+				                ( "vs PY", NAMEOF( [View B1 G vs PY] ), 4 ),
+				                ( "vs Fcst TD", NAMEOF( [View B1 H vs Fcst TD] ), 4 ),
+				                ( "vs Fcst BU", NAMEOF( [View B1 I vs Fcst BU] ), 4 ),
+				                ( "vs Pln", NAMEOF( [View B1 J vs Pln] ), 4 ),
+				                ( "        ", NAMEOF( [View B1 K] ), 4 ),
+				                ( "vs PY, %", NAMEOF( [View B1 L vs PY, %] ), 4 ),
+				                ( "vs Fcst TD, %", NAMEOF( [View B1 M vs Fcst TD, %] ), 4 ),
+				                ( "vs Fcst BU, %", NAMEOF( [View B1 N vs Fcst BU, %] ), 4 ),
+				                ( "vs Pln, %", NAMEOF( [View B1 O vs Pln, %] ), 4 ),
+				                
+				                
+				                
+				                 ( "Act @py fx", NAMEOF( [View B2 A Act @PY] ), 5 ),
+				                ( "Act @fcst fx", NAMEOF( [View B2 B Act @Fcst] ), 5 ),
+				                ( "Act @plan fx", NAMEOF( [View B2 C Act @Plan] ), 5 ),    
+				                ( "PY", NAMEOF( [View B2 D PY] ), 5 ),
+				                ( "Fcst TD", NAMEOF( [View B2 E Fcst TD] ), 5 ),
+				                ( "Fcst BU", NAMEOF( [View B2 F Fcts BU] ), 5 ),
+				                ( "Pln", NAMEOF( [View B2 G Pln] ), 5 ),
+				                ( "        ", NAMEOF( [View B2 H] ), 5 ),
+				                ( "vs PY", NAMEOF( [View B2 I vs PY] ), 5 ),
+				                ( "vs Fcst TD", NAMEOF( [View B2 J vs Fcst TD] ), 5),
+				                ( "vs Fcst BU", NAMEOF( [View B2 K vs Fcst BU] ), 5 ),
+				                ( "vs Pln", NAMEOF( [View B2 L vs Pln] ), 5),
+				                ( "        ", NAMEOF( [View B2 M] ),5 ),
+				                ( "vs PY, %", NAMEOF( [View B2 N vs PY, %] ), 5),
+				                ( "vs Fcst TD, %", NAMEOF( [View B2 O vs Fcst TD, %] ), 5),
+				                ( "vs Fcst BU, %", NAMEOF( [View B2 P vs Fcst BU, %] ), 5 ),
+				                ( "vs Pln, %", NAMEOF( [View B2 Q vs Pln, %] ), 5),         
+				                
+				           
+				                ( "Act @act fx", NAMEOF( [View B3 A Act @Act Fx] ), 6 ),            
+				                ( "Act @py fx", NAMEOF( [View B3 B Act @py Fx]), 6 ),        
+				                ( "Act @fcst fx", NAMEOF( [View B3 C Act @Fcst fx] ), 6 ),            
+				                ( "Act @plan fx", NAMEOF( [View B3 D Act @Plan Fx]), 6),                
+				                ( "        ", NAMEOF( [View B3 E] ), 6 ),
+				                ( "vs PY", NAMEOF( [View B3 F vs PY] ), 6 ),
+				                ( "vs Fcst", NAMEOF( [View B3 G vs Fcst] ),6 ),    
+				                ( "vs Pln", NAMEOF( [View B3 H vs Pln] ), 6),            
+				                ( "        ", NAMEOF( [View B3 I] ),6 ),
+				                ( "vs PY, %", NAMEOF( [View B3 J vs PY, %] ), 6 ),   
+				                ( "vs Fcst, %", NAMEOF( [View B3 K vs Fcst, %] ), 6),
+				                ( "vs Pln, %", NAMEOF( [View B3 L vs Pln, %] ), 6 ),
+				                 
+				                
+				                
+				                
+				                
+				                ( "Act", NAMEOF( [View C1 A Act] ), 7 ),
+				                ( "PY", NAMEOF( [View C1 B PY] ), 7 ),
+				                ( "Fcst TD", NAMEOF( [View C1 C Fcst TD] ), 7 ),
+				                ( "Fcst BU", NAMEOF( [View C1 D Fcts BU] ), 7 ),
+				                ( "Pln", NAMEOF( [View C1 E Pln] ), 7 ),
+				                ( "        ", NAMEOF( [View C1 F] ), 7 ),
+				                ( "vs PY", NAMEOF( [View C1 G vs PY] ), 7 ),
+				                ( "vs Fcst TD", NAMEOF( [View C1 H vs Fcst TD] ), 7 ),
+				                ( "vs Fcst BU", NAMEOF( [View C1 I vs Fcst BU] ), 7 ),
+				                ( "vs Pln", NAMEOF( [View C1 J vs Pln] ), 7 ),
+				                ( "        ", NAMEOF( [View C1 K] ), 7 ),
+				                ( "vs PY, %", NAMEOF( [View C1 L vs PY, %] ), 7 ),
+				                ( "vs Fcst TD, %", NAMEOF( [View C1 M vs Fcst TD, %] ), 7 ),
+				                ( "vs Fcst BU, %", NAMEOF( [View C1 N vs Fcst BU, %] ), 7 ),
+				                ( "vs Pln, %", NAMEOF( [View C1 O vs Pln, %] ), 7 ),
+				                
+				                
+				                        ( "Act @py fx", NAMEOF( [View C2 A Act @PY] ), 8 ),
+				                ( "Act @fcst fx", NAMEOF( [View C2 B Act @Fcst] ), 8 ),
+				                ( "Act @plan fx", NAMEOF( [View C2 C Act @Plan] ), 8 ),    
+				                ( "PY", NAMEOF( [View C2 D PY] ), 8 ),
+				                ( "Fcst TD", NAMEOF( [View C2 E Fcst TD] ), 8 ),
+				                ( "Fcst BU", NAMEOF( [View C2 F Fcts BU] ), 8 ),
+				                ( "Pln", NAMEOF( [View C2 G Pln] ), 8),
+				                ( "        ", NAMEOF( [View C2 H] ), 8 ),
+				                ( "vs PY", NAMEOF( [View C2 I vs PY] ), 8 ),
+				                ( "vs Fcst TD", NAMEOF( [View C2 J vs Fcst TD] ), 8),
+				                ( "vs Fcst BU", NAMEOF( [View C2 K vs Fcst BU] ), 8),
+				                ( "vs Pln", NAMEOF( [View C2 L vs Pln] ), 8),
+				                ( "        ", NAMEOF( [View C2 M] ),8),
+				                ( "vs PY, %", NAMEOF( [View C2 N vs PY, %] ), 8),
+				                ( "vs Fcst TD, %", NAMEOF( [View C2 O vs Fcst TD, %] ), 8),
+				                ( "vs Fcst BU, %", NAMEOF( [View C2 P vs Fcst BU, %] ), 8 ),
+				                ( "vs Pln, %", NAMEOF( [View C2 Q vs Pln, %] ), 8),
+				                
+				                
+				                            
+				                                      
+				                ( "Act @act fx", NAMEOF( [View C3 A Act @Act Fx] ), 9 ),            
+				                ( "Act @py fx", NAMEOF( [View C3 B Act @py Fx]), 9 ),        
+				                ( "Act @fcst fx", NAMEOF( [View C3 C Act @Fcst fx] ), 9 ),            
+				                ( "Act @plan fx", NAMEOF( [View C3 D Act @Plan Fx]), 9),                
+				                ( "        ", NAMEOF( [View C3 E] ), 9 ),
+				                ( "vs PY", NAMEOF( [View C3 F vs PY] ), 9 ),
+				                ( "vs Fcst", NAMEOF( [View C3 G vs Fcst] ),9 ),    
+				                ( "vs Pln", NAMEOF( [View C3 H vs Pln] ), 9),            
+				                ( "        ", NAMEOF( [View C3 I] ),9 ),
+				                ( "vs PY, %", NAMEOF( [View C3 J vs PY, %] ), 9 ),   
+				                ( "vs Fcst, %", NAMEOF( [View C3 K vs Fcst, %] ),9),
+				                ( "vs Pln, %", NAMEOF( [View C3 L vs Pln, %] ), 9)
+				                 
+				                 
+				                 
+				                ,
+				                ( "MTD Act", NAMEOF( [View D1 A Act] ), 10 ),
+				                ( "Pln", NAMEOF( [View D1 B Pln] ), 10 ),
+				                ( "vs Pln", NAMEOF( [View D1 C vs Pln] ), 10 ),
+				                ( "vs Pln, %", NAMEOF( [View D1 D vs Pln, %] ), 10 ),     
+				                ( "        ", NAMEOF( [View D1 E] ), 10 ),
+				                
+				                ( "QTD Act", NAMEOF( [View D1 F Act] ), 10 ),
+				                ( "Pln", NAMEOF( [View D1 G Pln] ), 10 ),
+				                ( "vs Pln", NAMEOF( [View D1 H vs Pln] ), 10 ),
+				                ( "vs Pln, %", NAMEOF( [View D1 I vs Pln, %] ), 10 ),     
+				                ( "        ", NAMEOF( [View D1 J] ), 10 ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View D1 K Act] ), 10 ),
+				                ( "Pln", NAMEOF( [View D1 L Pln] ), 10 ),
+				                ( "vs Pln", NAMEOF( [View D1 M vs Pln] ), 10 ),
+				                ( "vs Pln, %", NAMEOF( [View D1 N vs Pln, %] ), 10 ),
+				                  ( "        ", NAMEOF( [View D1 O] ), 10 ),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View D1 P Act] ), 10 ),
+				                ( "Pln", NAMEOF( [View D1 Q Pln] ), 10 ),
+				                ( "vs Pln", NAMEOF( [View D1 R vs Pln] ), 10 ),
+				                ( "vs Pln, %", NAMEOF( [View D1 S vs Pln, %] ), 10 )
+				                
+				                      ,
+				                      
+				                      
+				                      
+				                      
+				                ( "MTD Act", NAMEOF( [View D2 A Act] ), 11 ),
+				                ( "Pln", NAMEOF( [View D2 B Pln] ), 11 ),
+				                ( "vs Pln", NAMEOF( [View D2 C vs Pln] ), 11  ),
+				                ( "vs Pln, %", NAMEOF( [View D2 D vs Pln, %] ), 11  ),     
+				                ( "        ", NAMEOF( [View D2 E] ), 11 ),
+				                
+				                ( "QTD Act", NAMEOF( [View D2 F Act] ), 11 ),
+				                ( "Pln", NAMEOF( [View D2 G Pln] ), 11 ),
+				                ( "vs Pln", NAMEOF( [View D2 H vs Pln] ), 11  ),
+				                ( "vs Pln, %", NAMEOF( [View D2 I vs Pln, %] ), 11  ),     
+				                ( "        ", NAMEOF( [View D2 J] ), 11  ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View D2 K Act] ), 11 ),
+				                ( "Pln", NAMEOF( [View D2 L Pln] ), 11  ),
+				                ( "vs Pln", NAMEOF( [View D2 M vs Pln] ), 11  ),
+				                ( "vs Pln, %", NAMEOF( [View D2 N vs Pln, %] ), 11 ),
+				                  ( "        ", NAMEOF( [View D2 O] ), 11 ),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View D2 P Act] ), 11 ),
+				                ( "Pln", NAMEOF( [View D2 Q Pln] ), 11 ),
+				                ( "vs Pln", NAMEOF( [View D2 R vs Pln] ), 11 ),
+				                ( "vs Pln, %", NAMEOF( [View D2 S vs Pln, %] ), 11 )         ,
+				                         
+				                      
+				                      
+				                      
+				                ( "MTD Act", NAMEOF( [View D3 A Act @act fx] ), 12   ),            
+				                 ( "MTD Act @pln fx", NAMEOF( [View D3 B Act @pln fx] ), 12 ),
+				                ( "vs Pln", NAMEOF( [View D3 C vs Pln] ), 12  ),            
+				                ( "vs Pln, %", NAMEOF( [View D3 D vs Pln, %] ), 12   ),     
+				                ( "        ", NAMEOF( [View D3 E] ), 12 ),
+				                
+				                ( "QTD Act", NAMEOF( [View D3 F Act @act fx] ), 12  ),            
+				                ( "QTD Act @pln fx", NAMEOF([View D3 G Act @pln fx] ), 12  ),       
+				                ( "vs Pln", NAMEOF( [View D3 H vs Pln] ), 12  ),
+				                ( "vs Pln, %", NAMEOF( [View D3 I vs Pln, %] ),12   ),     
+				                ( "        ", NAMEOF( [View D3 J] ), 12  ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View D3 K Act @act fx] ),12  ),
+				                ( "YTD Act @pln fx", NAMEOF( [View D3 L Act @pln fx] ),12  ),
+				                ( "vs Pln", NAMEOF( [View D3 M vs Pln] ),12  ),
+				                ( "vs Pln, %", NAMEOF( [View D3 N vs Pln, %] ), 12 )
+				                
+				       
+				                 ,
+				                ( "MTD Act", NAMEOF( [View E1 A Act] ), 13 ),
+				                ( "Pln", NAMEOF( [View E1 B Pln] ), 13 ),
+				                ( "vs Pln", NAMEOF( [View E1 C vs Pln] ), 13 ),
+				                ( "vs Pln, %", NAMEOF( [View E1 D vs Pln, %] ), 13 ),     
+				                ( "        ", NAMEOF( [View E1 E] ), 13 ),
+				                
+				                ( "QTD Act", NAMEOF( [View E1 F Act] ), 13 ),
+				                ( "Pln", NAMEOF( [View E1 G Pln] ), 13 ),
+				                ( "vs Pln", NAMEOF( [View E1 H vs Pln] ), 13 ),
+				                ( "vs Pln, %", NAMEOF( [View E1 I vs Pln, %] ), 13 ),     
+				                ( "        ", NAMEOF( [View E1 J] ), 13 ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View E1 K Act] ), 13 ),
+				                ( "Pln", NAMEOF( [View E1 L Pln] ), 13 ),
+				                ( "vs Pln", NAMEOF( [View E1 M vs Pln] ), 13 ),
+				                ( "vs Pln, %", NAMEOF( [View E1 N vs Pln, %] ), 13 ),
+				                  ( "        ", NAMEOF( [View E1 O] ), 13 ),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View E1 P Act] ), 13),
+				                ( "Pln", NAMEOF( [View E1 Q Pln] ), 13 ),
+				                ( "vs Pln", NAMEOF( [View E1 R vs Pln] ), 13 ),
+				                ( "vs Pln, %", NAMEOF( [View E1 S vs Pln, %] ), 13 )
+				                
+				                      ,
+				                                   
+				                ( "MTD Act", NAMEOF( [View E2 A Act] ), 14 ),
+				                ( "Pln", NAMEOF( [View E2 B Pln] ), 14 ),
+				                ( "vs Pln", NAMEOF( [View E2 C vs Pln] ), 14  ),
+				                ( "vs Pln, %", NAMEOF( [View E2 D vs Pln, %] ), 14 ),     
+				                ( "        ", NAMEOF( [View E2 E] ), 14 ),
+				                
+				                ( "QTD Act", NAMEOF( [View E2 F Act] ), 14 ),
+				                ( "Pln", NAMEOF( [View E2 G Pln] ), 14 ),
+				                ( "vs Pln", NAMEOF( [View E2 H vs Pln] ), 14  ),
+				                ( "vs Pln, %", NAMEOF( [View E2 I vs Pln, %] ), 14  ),     
+				                ( "        ", NAMEOF( [View E2 J] ), 14  ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View E2 K Act] ), 14 ),
+				                ( "Pln", NAMEOF( [View E2 L Pln] ), 14  ),
+				                ( "vs Pln", NAMEOF( [View E2 M vs Pln] ), 14  ),
+				                ( "vs Pln, %", NAMEOF( [View E2 N vs Pln, %] ), 14 ),
+				                  ( "        ", NAMEOF( [View E2 O] ), 14 ),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View E2 P Act] ), 14 ),
+				                ( "Pln", NAMEOF( [View E2 Q Pln] ), 14 ),
+				                ( "vs Pln", NAMEOF( [View E2 R vs Pln] ), 14),
+				                ( "vs Pln, %", NAMEOF( [View E2 S vs Pln, %] ), 14 )         
+				                      
+				                      
+				                      ,
+				                         
+				                      
+				                      
+				                      
+				                ( "MTD Act", NAMEOF( [View E3 A Act @act fx] ), 15   ),            
+				                 ( "MTD Act @pln fx", NAMEOF( [View E3 B Act @pln fx] ), 15 ),
+				                ( "vs Pln", NAMEOF( [View E3 C vs Pln] ), 15  ),            
+				                ( "vs Pln, %", NAMEOF( [View E3 D vs Pln, %] ), 15   ),     
+				                ( "        ", NAMEOF( [View E3 E] ), 15 ),
+				                
+				                ( "QTD Act", NAMEOF( [View E3 F Act @act fx] ), 15  ),            
+				                ( "QTD Act @pln fx", NAMEOF([View E3 G Act @pln fx] ), 15 ),       
+				                ( "vs Pln", NAMEOF( [View E3 H vs Pln] ), 15  ),
+				                ( "vs Pln, %", NAMEOF( [View E3 I vs Pln, %] ),15   ),     
+				                ( "        ", NAMEOF( [View E3 J] ), 15 ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View E3 K Act @act fx] ),15  ),
+				                ( "YTD Act @pln fx", NAMEOF( [View E3 L Act @pln fx] ),15  ),
+				                ( "vs Pln", NAMEOF( [View E3 M vs Pln] ),15  ),
+				                ( "vs Pln, %", NAMEOF( [View E3 N vs Pln, %] ), 15 ),
+				                
+				                
+				                
+				                
+				                
+				                
+				                   ( "MTD Act", NAMEOF( [View F1 A Act] ), 16),
+				                ( "py", NAMEOF( [View F1 B py] ), 16 ),
+				                ( "vs py", NAMEOF( [View F1 C vs py] ), 16 ),
+				                ( "vs py, %", NAMEOF( [View F1 D vs py, %] ), 16 ),     
+				                ( "        ", NAMEOF( [View F1 E] ), 16 ),
+				                
+				                ( "QTD Act", NAMEOF( [View F1 F Act] ), 16),
+				                ( "py", NAMEOF( [View F1 G py] ), 16 ),
+				                ( "vs py", NAMEOF( [View F1 H vs py] ), 16 ),
+				                ( "vs py, %", NAMEOF( [View F1 I vs py, %] ),16),     
+				                ( "        ", NAMEOF( [View F1 J] ), 16 ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View F1 K Act] ), 16 ),
+				                ( "py", NAMEOF( [View F1 L py] ), 16 ),
+				                ( "vs py", NAMEOF( [View F1 M vs py] ), 16),
+				                ( "vs py, %", NAMEOF( [View F1 N vs py, %] ), 16 ),
+				                  ( "        ", NAMEOF( [View F1 O] ), 16),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View F1 P Act] ), 16 ),
+				                ( "py", NAMEOF( [View F1 Q py] ), 16 ),
+				                ( "vs py", NAMEOF( [View F1 R vs py] ), 16 ),
+				                ( "vs py, %", NAMEOF( [View F1 S vs py, %] ), 16 )
+				                
+				                      ,
+				                      
+				                      
+				                      
+				                      
+				                ( "MTD Act", NAMEOF( [View F2 A Act] ), 17 ),
+				                ( "py", NAMEOF( [View F2 B py] ), 17),
+				                ( "vs py", NAMEOF( [View F2 C vs py] ), 17  ),
+				                ( "vs py, %", NAMEOF( [View F2 D vs py, %] ), 17 ),     
+				                ( "        ", NAMEOF( [View F2 E] ), 17 ),
+				                
+				                ( "QTD Act", NAMEOF( [View F2 F Act] ), 17 ),
+				                ( "py", NAMEOF( [View F2 G py] ), 17 ),
+				                ( "vs py", NAMEOF( [View F2 H vs py] ), 17  ),
+				                ( "vs py, %", NAMEOF( [View F2 I vs py, %] ), 17 ),     
+				                ( "        ", NAMEOF( [View F2 J] ), 17 ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View F2 K Act] ),17 ),
+				                ( "py", NAMEOF( [View F2 L py] ), 17 ),
+				                ( "vs py", NAMEOF( [View F2 M vs py] ), 17 ),
+				                ( "vs py, %", NAMEOF( [View F2 N vs py, %] ), 17 ),
+				                  ( "        ", NAMEOF( [View F2 O] ), 17 ),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View F2 P Act] ), 17 ),
+				                ( "py", NAMEOF( [View F2 Q py] ), 17 ),
+				                ( "vs py", NAMEOF( [View F2 R vs py] ), 17 ),
+				                ( "vs py, %", NAMEOF( [View F2 S vs py, %] ), 17)         ,
+				                         
+				                      
+				                      
+				                      
+				                ( "MTD Act", NAMEOF( [View F3 A Act @act fx] ), 18   ),            
+				                 ( "MTD Act @py fx", NAMEOF( [View F3 B Act @py fx] ), 18 ),
+				                ( "vs py", NAMEOF( [View F3 C vs py] ), 18  ),            
+				                ( "vs py, %", NAMEOF( [View F3 D vs py, %] ), 18    ),     
+				                ( "        ", NAMEOF( [View F3 E] ), 18  ),
+				                
+				                ( "QTD Act", NAMEOF( [View F3 F Act @act fx] ), 18  ),            
+				                ( "QTD Act @py fx", NAMEOF([View F3 G Act @py fx] ), 18  ),       
+				                ( "vs py", NAMEOF( [View F3 H vs py] ), 18  ),
+				                ( "vs py, %", NAMEOF( [View F3 I vs py, %] ),18  ),     
+				                ( "        ", NAMEOF( [View F3 J] ), 18  ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View F3 K Act @act fx] ),18   ),
+				                ( "YTD Act @py fx", NAMEOF( [View F3 L Act @py fx] ),18  ),
+				                ( "vs py", NAMEOF( [View F3 M vs py] ),18  ),
+				                ( "vs py, %", NAMEOF( [View F3 N vs py, %]), 18 )
+				                
+				       
+				                 ,
+				                 
+				                 
+				      
+				                ( "MTD Act", NAMEOF( [View G1 A Act] ), 19 ),
+				                ( "py", NAMEOF( [View G1 B py] ), 19 ),
+				                ( "vs py", NAMEOF( [View G1 C vs py] ), 19 ),
+				                ( "vs py, %", NAMEOF( [View G1 D vs py, %] ), 19 ),     
+				                ( "        ", NAMEOF( [View G1 E] ), 19),
+				                
+				                ( "QTD Act", NAMEOF( [View G1 F Act] ), 19 ),
+				                ( "py", NAMEOF( [View G1 G py] ), 19 ),
+				                ( "vs py", NAMEOF( [View G1 H vs py] ), 19 ),
+				                ( "vs py, %", NAMEOF( [View G1 I vs py, %] ), 19 ),     
+				                ( "        ", NAMEOF( [View G1 J] ), 19 ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View G1 K Act] ), 19 ),
+				                ( "py", NAMEOF( [View G1 L py] ), 19 ),
+				                ( "vs py", NAMEOF( [View G1 M vs py] ), 19 ),
+				                ( "vs py, %", NAMEOF( [View G1 N vs py, %] ), 19 ),
+				                  ( "        ", NAMEOF( [View G1 O] ), 19 ),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View G1 P Act] ), 19),
+				                ( "py", NAMEOF( [View G1 Q py] ), 19 ),
+				                ( "vs py", NAMEOF( [View G1 R vs py] ), 19 ),
+				                ( "vs py, %", NAMEOF( [View G1 S vs py, %] ), 19 )
+				                
+				                      ,
+				                      
+				                      
+				                      
+				
+				                                   
+				                ( "MTD Act", NAMEOF( [View G2 A Act] ), 20 ),
+				                ( "py", NAMEOF( [View G2 B py] ), 20 ),
+				                ( "vs py", NAMEOF( [View G2 C vs py] ), 20  ),
+				                ( "vs py, %", NAMEOF( [View G2 D vs py, %] ), 20 ),     
+				                ( "        ", NAMEOF( [View G2 E] ), 20 ),
+				                
+				                ( "QTD Act", NAMEOF( [View G2 F Act] ), 20),
+				                ( "py", NAMEOF( [View G2 G py] ), 20 ),
+				                ( "vs py", NAMEOF( [View G2 H vs py] ), 20 ),
+				                ( "vs py, %", NAMEOF( [View G2 I vs py, %] ), 20 ),     
+				                ( "        ", NAMEOF( [View G2 J] ), 20),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View G2 K Act] ),20),
+				                ( "py", NAMEOF( [View G2 L py] ), 20),
+				                ( "vs py", NAMEOF( [View G2 M vs py] ), 20 ),
+				                ( "vs py, %", NAMEOF( [View G2 N vs py, %] ), 20 ),
+				                  ( "        ", NAMEOF( [View G2 O] ), 20),
+				                  
+				                  
+				                   ( "Fcst TD", NAMEOF( [View G2 P Act] ), 20),
+				                ( "py", NAMEOF( [View G2 Q py] ), 20 ),
+				                ( "vs py", NAMEOF( [View G2 R vs py] ), 20),
+				                ( "vs py, %", NAMEOF( [View G2 S vs py, %] ), 20 )         
+				                      
+				                      
+				                      ,
+				                         
+				                      
+				                      
+				               
+				                      
+				                ( "MTD Act", NAMEOF( [View G3 A Act @act fx] ), 21   ),            
+				                 ( "MTD Act @py fx", NAMEOF( [View G3 B Act @py fx] ), 21 ),
+				                ( "vs py", NAMEOF( [View G3 C vs py] ), 21  ),            
+				                ( "vs py, %", NAMEOF( [View G3 D vs py, %] ), 21   ),     
+				                ( "        ", NAMEOF( [View G3 E] ), 21 ),
+				                
+				                ( "QTD Act", NAMEOF( [View G3 F Act @act fx] ), 21  ),            
+				                ( "QTD Act @py fx", NAMEOF([View G3 G Act @py fx] ),  21 ),       
+				                ( "vs py", NAMEOF( [View G3 H vs py] ),  21  ),
+				                ( "vs py, %", NAMEOF( [View G3 I vs py, %] ), 21   ),     
+				                ( "        ", NAMEOF( [View G3 J] ),  21  ),
+				                
+				                
+				                ( "YTD Act", NAMEOF( [View G3 K Act @act fx] ), 21  ),
+				                ( "YTD Act @py fx", NAMEOF( [View G3 L Act @py fx] ), 21   ),
+				                ( "vs py", NAMEOF( [View G3 M vs py] ), 21   ),
+				                ( "vs py, %", NAMEOF( [View G3 N vs py, %] ),  21  )
+				         
+				         
+				            }
+				        RETURN
+				            result
+				```
+
+	annotation PBI_Id = c0b37e42c7814f4597d787631645f6c5
+

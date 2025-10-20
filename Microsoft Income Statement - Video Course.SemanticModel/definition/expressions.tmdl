@@ -1,0 +1,132 @@
+expression 'File Location Fixed' = "C:\Users\Chris.barber\OneDrive - Avanade\Documents\Personal\StarSchema.co.uk\Book\2nd Edition\StarSchema\One Value Self-Service Approach\Base Files\" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: f2c1709c-7e27-4af7-b8d3-f40bb1972ff8
+	queryGroup: 'Parameters Fixed'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression 'ENTER LOCATION OF EXCEL' = "C:\Users\Chris.barber\OneDrive - Avanade\Documents\Camtasia\2025 Video Course\" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: fa6ca5b5-4f42-472e-bc36-b1915574ea30
+	queryGroup: 'ENTER HERE'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression 'Layout Base' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("jVTRbqMwEPwVK9K95SSwacj1sUlVnRS10aXSPUR9cMmWWAUT2Q7K59y33Jfd2hhCUjs6EQUDO8Ps7JjtdpJOppNf0II8wj0uHyouP/Fsf2/T7YTi4u8fe6xVszsWBq9XQsJ3YaAmqgPivTRJk6Q7s8Qh2YDcgGpFAYTLHWnMHlSUg3oO6jmygcMer43h1ah+c3w37tbzYrXEa6uVOdydwwXameFi0WhDmo+e6N5SB0rz685d1Vk3nA4gtdVBfe94zjrd83jvN1ioZ6Ge5Ueg++JSvGM7+7BcLfDaKp87hjS5oHhSjdak5qoU8gp5dtAj0yhySr7hs6VoxQ7IGlQB0vCyGyD+ZR2+D07A2ZS5zGngqtg7Z3bYTdUcamSKuMO8x9mQr9SGY8Mr0I4CtX2CEbKMENx5glmSUk9gU/IEEhQaYCn4rhZSaKO4ES1EeHLPkydZL2Q2WBVq1k7j5QCWVJZEyKKpY+FFJgeZByA3XM/Pro8jE9rNVvmLjeHAKiG+pfO02465d4zaUPx0QPIOH40CT0MMP4GOdNWD6WScqLA+m4xXfiK45VqhRSMjU5j7KcyHONDsP+jtxJ/B3J4C7byks4viuP+O1WPyKxFhGXa+j1xJnK4mOGei91yFP7/9QB+4FsVZwON607+ZdZ881m/1BY4lXNhpZOkXjUGVzHrxG0S5N4B7o8U4ltAp1SGpjI2l9qR27UHj2mwk1hUuRXW077ksffsH", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Income_Statement_Key = _t, #"Line name" = _t, Calculation_type = _t, From = _t, To = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Income_Statement_Key", Int64.Type}, {"From", Int64.Type}, {"To", Int64.Type}})
+		in
+		    #"Changed Type"
+	lineageTag: b5042059-14f5-4090-a905-8008a5c54faf
+	queryGroup: 'Layout Calculations'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Accountnumbers =
+		let
+		    Source = #"Layout Base",
+		    #"Filtered Rows" = Table.SelectRows(Source, each ([Calculation_type] = "Line-item expense" or [Calculation_type] = "Line-item revenue")),
+		    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Account Key", each Text.Combine(List.Transform({[From]..[To]},Text.From),";")),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Added Custom",{"Income_Statement_Key", "Account Key"}),
+		    #"Split Column by Delimiter" = Table.ExpandListColumn(Table.TransformColumns(#"Removed Other Columns", {{"Account Key", Splitter.SplitTextByDelimiter(";", QuoteStyle.None), let itemType = (type nullable text) meta [Serialized.Text = true] in type {itemType}}}), "Account Key"),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Account Key", Int64.Type}}),
+		    #"Removed Duplicates" = Table.Distinct(#"Changed Type", {"Account Key"})
+		in
+		    #"Removed Duplicates"
+	lineageTag: e518a25d-4c01-4949-a27c-fe9bf5ccdcd5
+	queryGroup: 'Layout Calculations'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Formatting =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("rZBBC4IwFMe/ypgFik523yVy3SQEj+ph6aNGtkKn9PFb6JKCosNO773/fvwee0WBt6KXNepPooMeR9iLPI9GzJ9qwIjJwjkktr6ymNL1HE8triKjbIU6G4YySihjmy/tE+WyHTQ0bvdzOcoG0C7LDYhW9pn5pZlKbOdJjsIFIO/Av4sy6GpQWhzBfiA2iG+74Kfn4yCpVECkhguC+w1UD45usng7GEENrrz5cNBXLVq0T1Lu3MnTxIWzegA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Calc_Type Validation" = _t, Format_String_Default = _t, Format_String_Variance_Abs = _t, Format_String_Variance_Per = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Calc_Type Validation", type text}, {"Format_String_Default", type text}, {"Format_String_Variance_Abs", type text}, {"Format_String_Variance_Per", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: 14a4bbeb-daa5-4fd6-a352-b651ffda2a6c
+	queryGroup: 'Layout Calculations'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Layout Add Columns' =
+		let
+		    Source = #"Layout Base",
+		    #"Added Custom" = Table.AddColumn(Source, "Subtotal_From", each if [Calculation_type] = "Subtotal NCLD" then [From] else if [Calculation_type] = "Subtotal NDLC" then [From] else null),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Subtotal_To", each if [Calculation_type] = "Subtotal NCLD" then [To]
+		else if [Calculation_type] = "Subtotal NDLC" then [To] else null),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Divide_Numerator", each if [Calculation_type] = "Divide Percentage" then [From] else if [Calculation_type] = "Divide EPS" then [From] else null),
+		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Divide_Denominator", each if [Calculation_type] = "Divide Percentage" then [To] else if [Calculation_type] = "Divide EPS" then [To] else null),
+		    #"Added Custom4" = Table.AddColumn(#"Added Custom3", "Positives in Red", each if [Calculation_type] = "Line-item expense" then -1 else if [Calculation_type] = "Subtotal NDLC" then -1 else 1),
+		    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "Show_Perc", each if [Calculation_type] = "Divide Percentage" then null else 1),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom5",{{"Show_Perc", Int64.Type}, {"Positives in Red", Int64.Type}, {"Divide_Denominator", Int64.Type}, {"Divide_Numerator", Int64.Type}, {"Subtotal_To", Int64.Type}, {"Subtotal_From", Int64.Type}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Calculation_type"}, Formatting, {"Calc_Type Validation"}, "Formatting", JoinKind.LeftOuter),
+		    #"Expanded Formatting" = Table.ExpandTableColumn(#"Merged Queries", "Formatting", {"Format_String_Default", "Format_String_Variance_Abs", "Format_String_Variance_Per"}, {"Format_String_Default", "Format_String_Variance_Abs", "Format_String_Variance_Per"})
+		in
+		    #"Expanded Formatting"
+	lineageTag: beecef05-b871-4baa-b4b4-31f84bf4c5b2
+	queryGroup: 'Layout Calculations'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Layout External' =
+		let
+		    Source = #"Layout Add Columns",
+		    #"Added Custom" = Table.AddColumn(Source, "Layout_Version_Key", each 1),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Layout version", each "External"),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Show_Values", each if [Calculation_type] = "Divide Percentage" then null else 1),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom2",{{"Layout_Version_Key", Int64.Type}, {"Layout version", type text}, {"Show_Values", Int64.Type}})
+		in
+		    #"Changed Type"
+	lineageTag: d88b0f96-e027-41aa-a661-5633541222ec
+	queryGroup: 'Layout Calculations'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Layout Internal' =
+		let
+		    Source = #"Layout Add Columns",
+		    #"Added Custom" = Table.AddColumn(Source, "Layout_Version_Key", each 2),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Layout version", each "Internal"),
+		    #"Added Custom2" = Table.AddColumn(#"Added Custom1", "Show_Values", each if [Calculation_type] = "Basic shares" then null else if [Calculation_type] = "Diluted shares" then null else 1),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom2",{{"Layout_Version_Key", Int64.Type}, {"Layout version", type text}, {"Show_Values", Int64.Type}}),
+		    #"Added to Column" = Table.TransformColumns(#"Changed Type", {{"Income_Statement_Key", each _ + 100, type number}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Added to Column", each ([Line name] <> "Weighted average shares:"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 542d00b7-444e-47ea-8110-e5ab7a47c4c1
+	queryGroup: 'Layout Calculations'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Check accounts are allocated' =
+		let
+		    Source = Account,
+		    #"Removed Other Columns" = Table.SelectColumns(Source,{"Account Key", "Account Type"}),
+		    #"Merged Queries" = Table.NestedJoin(#"Removed Other Columns", {"Account Key"}, Accountnumbers, {"Account Key"}, "Accountnumbers", JoinKind.LeftOuter),
+		    #"Expanded Accountnumbers" = Table.ExpandTableColumn(#"Merged Queries", "Accountnumbers", {"Income_Statement_Key"}, {"Accountnumbers.Income_Statement_Key"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Expanded Accountnumbers", each ([Accountnumbers.Income_Statement_Key] = null))
+		in
+		    #"Filtered Rows"
+	lineageTag: 07b350e2-6dd0-46e7-9bb8-4c43f91a0f52
+	queryGroup: 'ENTER HERE'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

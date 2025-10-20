@@ -1,0 +1,90 @@
+table Scenario
+	isHidden
+	lineageTag: 8005db4d-20ca-4dc1-b7be-1bfd4e0b105b
+
+	column 'Scenario Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: b23ef71c-f9f0-4cee-85bb-53d1d9087cff
+		summarizeBy: count
+		sourceColumn: Scenario Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Effective Date'
+		dataType: dateTime
+		isHidden
+		formatString: mm/dd/yyyy
+		lineageTag: d6506ee9-59e0-4db2-b8ac-1341a46c01da
+		summarizeBy: none
+		sourceColumn: Effective Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Account Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3f016f5d-3dd9-4a6e-a67b-1947bd0fd198
+		summarizeBy: none
+		sourceColumn: Account Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ownership Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c18edc53-e17f-4d85-8e86-8c7ab7332fb5
+		summarizeBy: none
+		sourceColumn: Ownership Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit less debit'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ee345c77-acdb-49c2-8300-f40417ffd5c5
+		summarizeBy: sum
+		sourceColumn: Credit less debit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal Entity Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 250daca6-a833-4b47-aad6-49bd3d49743b
+		summarizeBy: none
+		sourceColumn: Legal Entity Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Business Unit Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ec5837b2-b557-489b-b428-2c8c33a23411
+		summarizeBy: count
+		sourceColumn: Business Unit Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Scenario = m
+		mode: import
+		queryGroup: Fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents(#"File Location Fixed" & "Scenario.csv"),[Delimiter=",", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Scenario Key", Int64.Type}, {"Effective Date", type date}, {"Account Key", Int64.Type}, {"Ownership Key", Int64.Type}, {"Legal Entity Key", Int64.Type}, {"Business Unit Key", Int64.Type}, {"Credit less debit", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

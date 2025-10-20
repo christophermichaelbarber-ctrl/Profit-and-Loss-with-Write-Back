@@ -1,0 +1,100 @@
+table Account
+	lineageTag: fb62791f-ba91-43d0-8eec-6d4ff00d534d
+
+	column 'Account Key'
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		lineageTag: 92636060-9c91-4d31-a27b-063a2ddcf4d1
+		summarizeBy: none
+		sourceColumn: Account Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Name'
+		dataType: string
+		isHidden
+		lineageTag: cf7354a9-5076-48e5-871d-a8da952d100a
+		summarizeBy: none
+		sourceColumn: Account Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Number and Name'
+		dataType: string
+		lineageTag: 4a20ce99-eba9-47ee-b53f-db9b93af748a
+		summarizeBy: none
+		sourceColumn: Account Number and Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Type'
+		dataType: string
+		isHidden
+		lineageTag: 1e6ec5b3-3e00-4da5-b204-5d44fa9353a0
+		summarizeBy: none
+		sourceColumn: Account Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Type Indicator'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 68397e0c-0da3-421b-9b8d-c02e5a76a3e2
+		summarizeBy: sum
+		sourceColumn: Account Type Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Layout 1 Income Statement Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 97034d44-244f-4005-aea4-e51987ea9e99
+		summarizeBy: none
+		sourceColumn: Layout 1 Income Statement Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Layout 2 Income Statement Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c9463f43-bde5-454c-b8c4-369167721cd7
+		summarizeBy: count
+		sourceColumn: Layout 2 Income Statement Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Account = m
+		mode: import
+		queryGroup: Dimensions
+		source = ```
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("nZbNasJAFIVfJWStkLk/c+cFui50K65soC6aFtHi4zcGabVzYI7d6ST3wPnuN5DNpk9DGoZ+1b+MX+N0Gudfy0m37n5Pbp7129Uyk6qZ1JyRakaaM1rNaGtGqj7S7CNVH2n2kaqPNPtI1UcafeS6n6fz5zi97o+nw+WZXHd0f3r/b/0TkGBA4gMEBggfoDBA+QCDAUYHCIQoPESBEIWHKBCi8BAFQhQeokCIwkJUaKLyJio0UXkTFZqovIkKTVTeRIUmKm/i/KrDAOcDMgzIfEDAgOADCgwoZIBBkYwXyaBIxotkUCTjRTIokvEiOWTgPAOHDJxn4JCB8wwcMvCHGIDL5PxlcniZnL9MDi+T85cpwzVmfo0ZrjHza8xwjZlfY8AKwVcIWCH4CgErxEMVgInBmxjQxOBNjMEgROMhGoRoPESDEI2HaBCisRDTEEuF5+PbeOj20+7jffmMvRzPCX+O62/jkP9PFyhx4SUuUOLCS1ygxIWXuECJCynx9hs=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Account Key" = _t, #"Account Name" = _t, #"Account Number and Name" = _t, #"Account Type" = _t, #"Account Type Indicator" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Account Key", Int64.Type}, {"Account Name", type text}, {"Account Number and Name", type text}, {"Account Type", type text}, {"Account Type Indicator", Int64.Type}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Account Key"}, Accountnumbers, {"Account Key"}, "Accountnumbers", JoinKind.LeftOuter),
+				    #"Expanded Accountnumbers" = Table.ExpandTableColumn(#"Merged Queries", "Accountnumbers", {"Income_Statement_Key"}, {"Layout 1 Income Statement Key"}),
+				    #"Added Custom" = Table.AddColumn(#"Expanded Accountnumbers", "Layout 2 Income Statement Key", each 100+[Layout 1 Income Statement Key]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"Layout 2 Income Statement Key", Int64.Type}})
+				in
+				    #"Changed Type1"
+				
+				/*
+				
+				
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("nZhLb9s4EMe/ipBzC5ikXnt0nRQt0G6LbLd76PbAWBNHqCx5KTlIvv1Sw4cokUrMHiLEM/TvT81LlH/8uCIbstlcvbl6R98l3wSvIPnY7rsjSBO6krdJwHULj9CecZH8o7h4vFK8Mnn9+QbZxLBvYTiLtldYYrCT9WIiNcTvXXM+gkTc8UFvlxru0ncxnRn6V1HvQV67AfZD3bVKgBmBgPtSDarjvfPjTXW8PdeczXAxQzZDNjNsYthuvCkx2LV4v0CkhujHmzLDfTneL9CZoQfjTVMj8Gq81zSoU9+7rh+S7j75LDcpat70uHoq8pD/5ukEbVXLsI1Kb0epAqUK/HKBUoWRsuV+XQu50eQTv+vOQsnYol/64iRs/f/DhYB2eFZ0W/qOOQ5sS/8v3kAvg3E81r0KNXUq3/fGyaRG5svwAMLGfMomrtFia2uiJKeGCxfA1HW/UQAlSpVGyvafXwBTF0YWwELCNuSsACg19MsLYAG2vRgqgKnXowtgIZMamfUCmPr+NwvAlWR6AnyU6+dxZ7r3fU8AXyL+jxFPcMAQZvCY9F3XDoIv8Jhy3xOHx4SrQCgCxqNXCpj2oDNOBJO/PUC7f57dAaZ9aY9DY8K/QjtWi6zOA+itY5KX9jh05qAVNHOg0bh8xP3d3p/bCiq7td0DFwdQ+HzEr6+IkyvcwGyrY926mS3c8My9cTLlKHNzPDXdM4g+mYWrHEVCvgiJ1DaYnJotb+T4FL9gqNuDNKa2xwLOgMiIVw1FSYoiqRFB66du7ytgm/meODy22Z98PF34CthmQWecCJt6Wc1R3lZLLTa1dHhNhGSmc7OtRfKe12KsnkynxLUFkEgjhHj5znQqtnt5Oq0rrs9jmc7DwhxJxizsuEg+1PiFTMfeMUUSMeTyPC37x4kABnlujeSmUyol5xEaBU6n7FlzJBmn2vuuqxQRR5r+GEnKl3vEWkJIDzoS+XLDyzUxmrmut1vogYv9g/w31+XmmEJEdcEXJpIhMTNEVLuWz/6mOx3l0UZBsdjm1te4eC4kheE6D9bbf8+bDc2v7YjNZ49Wzx2jVOiYXMNJnjJqbIzxVeYEAk9phQ7Qmj+kha+XGHlK8fWSUqNFPK1t38PQJx+gqZL7Tk8VJUw84bXFkbug/h03HJNU6MgGnZEqTKuAMKCb/861KYdCt/nqgki1dLonxcLiUELpdEtzX5xGqqb1sRND3SuQPPfKhydvD/VdAzo9qJmqKX7B2tf2gB1MmdkDVtCXRxAPwKuZgNLFolnzR2pRe3IAecb3tag9PAT8kVrOw9cXcp66F6jgzw34pJ2ryBcQMrsj59edgszuZeXHHZIjukQ0jhFaGLQzsFyuM6hioaWeTbtOyB5RRfSNP0lLqaeS7wnFA88fWMvqNZLJq+breXQP8rW0muB68szMkWQMx83THk76XCYp01m81HNmdUGkmlM99iacoom8g5//Aw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Account Key" = _t, #"Account Name" = _t, #"Account Number and Name" = _t, #"Account Type" = _t, #"Account Type Indicator" = _t, #"Layout 1 Income Statement Key" = _t, #"Layout 2 Income Statement Key" = _t, #"Layout 3 Income Statement Key" = _t, #"Layout 4 Income Statement Key" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Account Key", Int64.Type}, {"Account Name", type text}, {"Account Number and Name", type text}, {"Account Type", type text}, {"Account Type Indicator", Int64.Type}, {"Layout 1 Income Statement Key", Int64.Type}, {"Layout 2 Income Statement Key", Int64.Type}, {"Layout 3 Income Statement Key", Int64.Type}, {"Layout 4 Income Statement Key", Int64.Type}})
+				in
+				    #"Changed Type"
+				    
+				    */
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

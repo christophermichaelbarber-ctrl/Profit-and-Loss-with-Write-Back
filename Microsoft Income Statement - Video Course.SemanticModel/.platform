@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Microsoft Income Statement - Video Course"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f198d012-7840-9239-4679-a125b4bc6b4c"
+  }
+}

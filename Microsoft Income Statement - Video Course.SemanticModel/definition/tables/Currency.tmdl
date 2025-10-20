@@ -1,0 +1,70 @@
+table Currency
+	isHidden
+	lineageTag: 59fbb89f-d782-4e76-81fd-92b27dfb7232
+
+	column Currency
+		dataType: string
+		isHidden
+		lineageTag: 3f37f122-bdd8-47f0-b831-9ccb9027d83e
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Currency Group'
+		dataType: string
+		lineageTag: 52ecde26-4987-4209-ab3c-157f36ae651d
+		summarizeBy: none
+		sourceColumn: Currency Group
+		sortByColumn: 'Currency Group Sort Order'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Currency Group Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b6d5571c-26f3-4944-a21a-23bf947ebc89
+		summarizeBy: none
+		sourceColumn: Currency Group Sort Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Underlying Currency'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 866dab1c-3976-4f68-8e34-39c8c4cda91d
+		summarizeBy: none
+		sourceColumn: Underlying Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Currency Key'
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		lineageTag: 7f5e0e89-8eaf-4ad2-87db-b39695f6b70b
+		summarizeBy: none
+		sourceColumn: Currency Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Currency = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents(#"File Location Fixed" & "Currency.csv"),[Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Currency", type text}, {"Currency Group", type text}, {"Currency Key", Int64.Type}, {"Currency Group Sort Order", Int64.Type}, {"Underlying Currency", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

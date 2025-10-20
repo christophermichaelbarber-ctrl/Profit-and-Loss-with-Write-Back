@@ -1,0 +1,62 @@
+relationship AutoDetected_47ed48e8-2650-4172-a72e-e0c062a95ec6
+	fromColumn: Ledger.'Ownership Key'
+	toColumn: 'Group Ownership'.'Ownership Key'
+
+relationship AutoDetected_153e35ea-6c11-4c70-a759-c441a393d4ea
+	fromColumn: Scenario.'Ownership Key'
+	toColumn: 'Group Ownership'.'Ownership Key'
+
+relationship 2bc94fea-5021-3b74-4458-4bcfb57886be
+	fromColumn: Scenario.'Effective Date'
+	toColumn: 'Effective Date'.'Fiscal Date'
+
+relationship AutoDetected_b79086ca-e07c-43fe-8770-db16c539bf11
+	fromColumn: Ledger.'Account Key'
+	toColumn: Account.'Account Key'
+
+relationship AutoDetected_ea02da0d-9882-4d8d-81af-f402201fc594
+	fromColumn: Scenario.'Account Key'
+	toColumn: Account.'Account Key'
+
+relationship a10f1add-6779-f6b7-bac9-f35544478e52
+	fromColumn: Account.'Layout 1 Income Statement Key'
+	toColumn: Layout.Income_Statement_Key
+
+relationship f83c2bee-71fc-3a63-35a9-fd12d5cc793b
+	isActive: false
+	fromColumn: Account.'Layout 2 Income Statement Key'
+	toColumn: Layout.Income_Statement_Key
+
+relationship afbfb3a7-4625-7046-6e3b-f5acc17ac4e9
+	fromColumn: Ledger.'Currency Key'
+	toColumn: Currency.'Currency Key'
+
+relationship AutoDetected_830ca738-6bd3-4573-acf2-fde2c55ec562
+	fromColumn: Ledger.'Legal Entity Key'
+	toColumn: 'Legal Entity'.'Legal Entity Key'
+
+relationship 67b6a506-1537-b76d-ad03-397951f830fe
+	fromColumn: Ledger.Date
+	toColumn: 'Effective Date'.'Fiscal Date'
+
+relationship AutoDetected_88ca2816-faf2-408a-a067-f7718720603d
+	fromColumn: Scenario.'Legal Entity Key'
+	toColumn: 'Legal Entity'.'Legal Entity Key'
+
+relationship AutoDetected_90200b6b-5a42-4442-abd4-6f3ac88da21a
+	fromColumn: Ledger.'Working Day Key'
+	toColumn: 'Posting date'.'Working Day Key'
+
+relationship 96ba262a-2fe3-9f26-6307-81d745a57bab
+	fromColumn: '__Field Paramater Self-Service Table Measures'.Selected_Measures_Key
+	toColumn: 'Select Measures Table'.Selected_Mesaures_Key
+
+relationship a910121a-6cab-7c6e-3d44-c39902c13da2
+	isActive: false
+	fromColumn: Ledger.Date
+	toColumn: 'Effective Date'.'Fiscal Date PY'
+
+relationship 703c7ddc-fbc4-d3cc-2bb4-857ef5ec0839
+	fromColumn: '__Field Paramater Decomposition Tree'.Selected_Measures_Key
+	toColumn: 'Select Measures Table'.Selected_Mesaures_Key
+

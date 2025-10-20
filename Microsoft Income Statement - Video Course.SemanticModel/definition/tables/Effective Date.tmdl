@@ -1,0 +1,294 @@
+table 'Effective Date'
+	lineageTag: 483bdffb-6000-441b-a3f1-7867d4367b94
+	dataCategory: Time
+
+	column 'Fiscal Date'
+		dataType: dateTime
+		isHidden
+		isKey
+		formatString: Long Date
+		lineageTag: 351baa91-cd9d-4bac-a7f6-f88e1379f9af
+		summarizeBy: none
+		sourceColumn: Fiscal Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Fiscal Year'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: be36d38b-0540-4c90-aa49-571733c78247
+		summarizeBy: sum
+		sourceColumn: Fiscal Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Quarter'
+		dataType: string
+		lineageTag: 69d4bfd2-f51d-4b7e-9537-27366718cb94
+		summarizeBy: none
+		sourceColumn: Fiscal Quarter
+		sortByColumn: 'Fiscal Quarter Sort'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Period'
+		dataType: string
+		lineageTag: 4195907f-1ddb-4fd9-a519-f779120bcb37
+		summarizeBy: none
+		sourceColumn: Fiscal Period
+		sortByColumn: 'Fiscal Period Sort'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year-Quarter'
+		dataType: string
+		isHidden
+		lineageTag: e6b66d3b-19f8-45bf-83e8-8b87d9cf1b69
+		summarizeBy: none
+		sourceColumn: Fiscal Year-Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year-Period'
+		dataType: string
+		isHidden
+		lineageTag: 45779a88-eb98-4550-9b96-52a1376eb6ee
+		summarizeBy: none
+		sourceColumn: Fiscal Year-Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a9f97a35-a86d-4068-a57a-bbc0bd3234c5
+		summarizeBy: sum
+		sourceColumn: Fiscal Year Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Quarter Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ad302bb2-6950-433f-bf3c-bdd76dd68dc8
+		summarizeBy: sum
+		sourceColumn: Fiscal Quarter Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Period Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 83a74d26-b677-4d67-8ab5-7c769c47e714
+		summarizeBy: sum
+		sourceColumn: Fiscal Period Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year-Quarter Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e201d6da-42bf-4a79-895b-0918ab868e6d
+		summarizeBy: sum
+		sourceColumn: Fiscal Year-Quarter Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year-Period Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 23698ade-8d31-471a-aed6-226f47a27c68
+		summarizeBy: sum
+		sourceColumn: Fiscal Year-Period Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column YTD
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0c25ae95-148a-4a2f-9a0b-94983a33fc50
+		summarizeBy: sum
+		sourceColumn: YTD
+
+		annotation SummarizationSetBy = Automatic
+
+	column YTG
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 97fac7ba-4ede-470e-83ae-648983ee8cf6
+		summarizeBy: sum
+		sourceColumn: YTG
+
+		annotation SummarizationSetBy = Automatic
+
+	column PYTD
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 63a0b2c9-2ac9-442c-8fb9-53c5aefc4c63
+		summarizeBy: sum
+		sourceColumn: PYTD
+
+		annotation SummarizationSetBy = Automatic
+
+	column PY
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 22e9c2b3-a949-4565-89a1-49639944ae16
+		summarizeBy: sum
+		sourceColumn: PY
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTD
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e34e52ac-91c7-49cb-89b7-043ec58d1f26
+		summarizeBy: sum
+		sourceColumn: QTD
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTG
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fcc77285-9f1e-4d02-ba18-aae41b7a081e
+		summarizeBy: sum
+		sourceColumn: QTG
+
+		annotation SummarizationSetBy = Automatic
+
+	column PQTD
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8c7c7003-320e-45e7-9913-8cc1b7a29021
+		summarizeBy: sum
+		sourceColumn: PQTD
+
+		annotation SummarizationSetBy = Automatic
+
+	column MTD
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eccb745a-262a-4dcf-ac3e-bf3d5805d255
+		summarizeBy: sum
+		sourceColumn: MTD
+
+		annotation SummarizationSetBy = Automatic
+
+	column PMTD
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dda025bf-902c-449f-9022-1e8f11196cd8
+		summarizeBy: sum
+		sourceColumn: PMTD
+
+		annotation SummarizationSetBy = Automatic
+
+	column CQ
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b830ed2c-0224-4165-9816-ef2f84bcba4e
+		summarizeBy: sum
+		sourceColumn: CQ
+
+		annotation SummarizationSetBy = Automatic
+
+	column PQ
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f67e0643-8920-492c-9f72-7b7b342d7ae2
+		summarizeBy: sum
+		sourceColumn: PQ
+
+		annotation SummarizationSetBy = Automatic
+
+	column CY
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 77e4f6d7-96a0-471d-be76-37d53b9dd5c3
+		summarizeBy: sum
+		sourceColumn: CY
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Date PY'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: f5e2880c-0052-4409-aae1-1191eb6e2fed
+		summarizeBy: none
+		sourceColumn: Fiscal Date PY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Fiscal Period CP'
+		dataType: string
+		isHidden
+		lineageTag: 5ce7dc5d-c8a0-4e4f-8a04-0631f8bed5f0
+		summarizeBy: none
+		sourceColumn: Fiscal Period CP
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Effective Date' = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents(#"File Location Fixed" & "\Effective Date.csv"),[Delimiter=",", Columns=23, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Fiscal Date", type date}, {"Fiscal Year", Int64.Type}, {"Fiscal Year Sort", Int64.Type}, {"Fiscal Quarter Sort", Int64.Type}, {"Fiscal Period Sort", Int64.Type}, {"Fiscal Year-Quarter Sort", Int64.Type}, {"Fiscal Year-Period Sort", Int64.Type}, {"YTD", Int64.Type}, {"YTG", Int64.Type}, {"PYTD", Int64.Type}, {"PY", Int64.Type}, {"QTD", Int64.Type}, {"QTG", Int64.Type}, {"PQTD", Int64.Type}, {"MTD", Int64.Type}, {"PMTD", Int64.Type}, {"CQ", Int64.Type}, {"PQ", Int64.Type}, {"CY", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "Fiscal Date PY", each if Date.Month([Fiscal Date]) = 2
+				and Date.Day([Fiscal Date]) = 29
+				
+				then Date.AddYears([Fiscal Date],10)
+				
+				else
+				Date.AddYears([Fiscal Date],-1)),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Custom",{"Fiscal Date", "Fiscal Date PY", "Fiscal Year", "Fiscal Quarter", "Fiscal Period", "Fiscal Year-Quarter", "Fiscal Year-Period", "Fiscal Year Sort", "Fiscal Quarter Sort", "Fiscal Period Sort", "Fiscal Year-Quarter Sort", "Fiscal Year-Period Sort", "CY", "YTD", "YTG", "PY", "PYTD", "CQ", "QTD", "QTG", "PQ", "PQTD", "MTD", "PMTD"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Reordered Columns",{{"Fiscal Date PY", type date}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type1", "Fiscal Period CP", each if [Fiscal Period] = 8
+				and [Fiscal Year] = 2023
+				then "Current Period"
+				
+				else
+				
+				if [Fiscal Year] = 2023
+				then [Fiscal Period] else null)
+				in
+				    #"Added Custom1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,103 @@
+table 'Select Measures Table'
+	isHidden
+	lineageTag: 8a7c6aa4-bf6f-45ee-bac5-afce5b3c99c0
+
+	column Selected_Mesaures_Key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dc557279-3406-4180-b0ca-afe77d44c56e
+		summarizeBy: none
+		sourceColumn: Selected_Mesaures_Key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Period
+		dataType: string
+		isHidden
+		lineageTag: 409c5920-b293-497c-8853-e16b7876b912
+		summarizeBy: none
+		sourceColumn: Period
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Comparison
+		dataType: string
+		isHidden
+		lineageTag: d4eab79b-1c96-4988-a63a-6e81b51152a3
+		summarizeBy: none
+		sourceColumn: Comparison
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fx
+		dataType: string
+		isHidden
+		lineageTag: f58acd98-a48b-43b9-887d-1572f513294a
+		summarizeBy: none
+		sourceColumn: Fx
+		sortByColumn: 'Fx Sort Order'
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fx Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 36de7ac6-47ef-435b-9cd5-0cd6a9a67a22
+		summarizeBy: sum
+		sourceColumn: Fx Sort Order
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		isHidden
+		lineageTag: d071baa6-f1cb-4b27-9f23-2bdab1a5eb60
+		summarizeBy: none
+		sourceColumn: Title
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Decompoisition Tree Title'
+		dataType: string
+		isHidden
+		lineageTag: 42a4adce-1f12-49e5-818d-8ab04c6a6f95
+		summarizeBy: none
+		sourceColumn: Decompoisition Tree Title
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Select Measures Table' = m
+		mode: import
+		queryGroup: Measures
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("zZZbT8IwGIb/SrMrTUZCkZOXarJLD4leGMJFdVVJRruUDuHf2w4Y62FtjQ14s+zw9ePpw94PZrMEJmlyVzGGCQdLSviXuL6/EYf1CjyyBWXgFSMmrh/WmKGiEGfGEiBqy7p2K2pTwGkJcvpNwAdl+B2teAreKOd0CaqydQ+RHJQFIuBi3/vS3bhVN09nycBFLtqek1mtkLRXoZ5fSI5ZsV2QT3Fh7PHP2Mf2XtvtUrmFoV/4meGNIok9CjWfbcTB+J50aBtXtvHKlCWSZuyXGJ+jeSgJJqLkqUKMY9bjtJcjjsMyry2KmSBnay1JUze/LfknJjfTfx3u3IhQbHg1RB7zephgP8T+P9iDdRRAy8vgnQYe9u4cetQe8ggtghxDISqOMhigbC93/7ux0F4RM1ndfbVwwaGD2zYOTkZsDgI4CnRsRCgqtJofl2kjQmOv7LOi23M/CbTepMyF3B0xl8gmZVOvwNgUasrlb1FWFcWO6+Bf3Hw+nupeasChdWEDAgyZZq2yh92/+H4gzk5NMMjepB1BPqw/HCo1zYsn7t62zgNsmO+sQ8ex2OJjEIzUaaQDRleiYtRO5j8=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Selected_Mesaures_Key = _t, Period = _t, #"Forecast version" = _t, Comparison = _t, Fx = _t, #"Fx Sort Order" = _t, Title = _t, #"Decompoisition Tree Title" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Selected_Mesaures_Key", Int64.Type}, {"Period", type text}, {"Forecast version", type text}, {"Comparison", type text}, {"Fx Sort Order", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Forecast version"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

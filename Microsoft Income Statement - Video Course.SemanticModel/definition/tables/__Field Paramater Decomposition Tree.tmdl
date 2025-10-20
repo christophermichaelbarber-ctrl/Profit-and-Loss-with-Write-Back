@@ -1,0 +1,72 @@
+table '__Field Paramater Decomposition Tree'
+	isHidden
+	lineageTag: 8c826979-263e-4c32-b064-3ed41025b404
+
+	column Selected_Measure_Name
+		lineageTag: 9223cc7a-2c25-4dc3-8664-d65ea14ded97
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: Selected_Measures_Key
+
+		relatedColumnDetails
+			groupByColumn: Selected_Measures_Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Selected_Measures_Fields
+		isHidden
+		lineageTag: 7d2d0c67-f039-42e3-8578-f73c51041510
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: Selected_Measures_Key
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column Selected_Measures_Key
+		isHidden
+		formatString: 0
+		lineageTag: b6607de8-b790-4f4c-a037-e7ba2158a8ee
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Self-Service Measures' = calculated
+		mode: import
+		source =
+				VAR result =
+				        {
+				            ( "vs PY", NAMEOF( [View A1 G vs PY] ), 1 ),
+				            ( "vs Pln", NAMEOF( [View A1 J vs Pln] ), 2 ),
+				            ( "vs PY", NAMEOF( [View A2 I vs PY] ), 3 ),
+				            ( "vs Pln", NAMEOF( [View A2 L vs Pln] ), 4 ),
+				            ( "vs PY", NAMEOF( [View A3 F vs PY] ), 5 ),
+				            ( "vs Pln", NAMEOF( [View A3 H vs Pln] ), 6 ),
+				            ( "vs PY", NAMEOF( [View B1 G vs PY] ), 7 ),
+				            ( "vs Pln", NAMEOF( [View B1 J vs Pln] ), 8 ),
+				            ( "vs PY", NAMEOF( [View B2 I vs PY] ), 9 ),
+				            ( "vs Pln", NAMEOF( [View B2 L vs Pln] ), 10 ),
+				            ( "vs PY", NAMEOF( [View B3 F vs PY] ), 11 ),
+				            ( "vs Pln", NAMEOF( [View B3 H vs Pln] ), 12 ),
+				            ( "vs PY", NAMEOF( [View C1 G vs PY] ), 13 ),
+				            ( "vs Pln", NAMEOF( [View C1 J vs Pln] ), 14 ),
+				            ( "vs PY", NAMEOF( [View C2 I vs PY] ), 15 ),
+				            ( "vs Pln", NAMEOF( [View C2 L vs Pln] ), 16 ),
+				            ( "vs PY", NAMEOF( [View C3 F vs PY] ), 17 ),
+				            ( "vs Pln", NAMEOF( [View C3 H vs Pln] ), 18 ),
+				            ( "vs py", NAMEOF( [View F1 R vs PY] ), 19 ),
+				            ( "vs Pln", NAMEOF( [View D1 R vs Pln] ), 20 ),
+				            ( "vs py", NAMEOF( [View G1 R vs PY] ), 21 ),
+				            ( "vs Pln", NAMEOF( [View E1 R vs Pln] ), 22 )
+				        }
+				    RETURN
+				        result
+
+	annotation PBI_Id = c0b37e42c7814f4597d787631645f6c5
+

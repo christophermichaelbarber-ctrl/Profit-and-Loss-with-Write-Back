@@ -1,0 +1,197 @@
+table Layout
+	lineageTag: eb3cf53f-46b1-4cb9-9c2c-6f166e9e9dfc
+
+	column Layout_Version_Key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c6b7fde8-6584-4940-a4fe-e92c56b64f7c
+		summarizeBy: none
+		sourceColumn: Layout_Version_Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Layout version'
+		dataType: string
+		lineageTag: 89485692-d1f6-4036-bc09-8d794577eec0
+		summarizeBy: none
+		sourceColumn: Layout version
+		sortByColumn: Layout_Version_Key
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Income_Statement_Key
+		dataType: double
+		isHidden
+		isKey
+		formatString: 0
+		lineageTag: 53c34717-d930-4202-8d7f-97b61be966ae
+		summarizeBy: none
+		sourceColumn: Income_Statement_Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Line name'
+		dataType: string
+		lineageTag: a8c7eae4-1ba8-4c61-8aee-729ba85fc534
+		summarizeBy: none
+		sourceColumn: Line name
+		sortByColumn: Income_Statement_Key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Calculation_type
+		dataType: string
+		isHidden
+		lineageTag: 916f183e-8e2b-4c48-b522-8db511487776
+		summarizeBy: none
+		sourceColumn: Calculation_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subtotal_From
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0bc65acd-ddea-45b8-bdc0-270ad8282d76
+		summarizeBy: none
+		sourceColumn: Subtotal_From
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subtotal_To
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3e2894cb-0710-46e8-929b-5be09995335a
+		summarizeBy: none
+		sourceColumn: Subtotal_To
+
+		annotation SummarizationSetBy = Automatic
+
+	column Divide_Numerator
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ee6ab8dd-3615-412d-8854-27845da0b0a0
+		summarizeBy: none
+		sourceColumn: Divide_Numerator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Divide_Denominator
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a360c5e8-48ea-4c1c-b8e8-d0fcef4a6821
+		summarizeBy: none
+		sourceColumn: Divide_Denominator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Show_Values
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c9911ea7-8581-4855-8613-f09d86ce6d91
+		summarizeBy: none
+		sourceColumn: Show_Values
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Positives in Red'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 978fc70a-2dad-4603-a793-06e1a66b6610
+		summarizeBy: none
+		sourceColumn: Positives in Red
+
+		annotation SummarizationSetBy = Automatic
+
+	column Show_Perc
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 95e317e4-f9ed-4d3f-b2c6-5410fdfd3055
+		summarizeBy: none
+		sourceColumn: Show_Perc
+
+		annotation SummarizationSetBy = Automatic
+
+	column From
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9e040203-969a-4757-b06d-f229ef9a86ad
+		summarizeBy: none
+		sourceColumn: From
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column To
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 71505245-319a-4342-9f9e-b755bcbebe6a
+		summarizeBy: none
+		sourceColumn: To
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format_String_Default
+		dataType: string
+		isHidden
+		lineageTag: 6aa3011a-2cf3-42c1-8ba3-af52aaf5c13d
+		summarizeBy: none
+		sourceColumn: Format_String_Default
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format_String_Variance_Abs
+		dataType: string
+		isHidden
+		lineageTag: 33ebeab8-9811-47ee-a792-226fffd33d97
+		summarizeBy: none
+		sourceColumn: Format_String_Variance_Abs
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format_String_Variance_Per
+		dataType: string
+		isHidden
+		lineageTag: 7852633b-cab8-447a-8b98-7a38df73cca6
+		summarizeBy: none
+		sourceColumn: Format_String_Variance_Per
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Layout = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Table.Combine({#"Layout External", #"Layout Internal"})
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

@@ -1,0 +1,284 @@
+table Measures_Excel
+	lineageTag: cb032c9f-c57e-45bf-bfa1-59f48ecfbe39
+
+	measure '_Actual YTD @Actual Fx' = [View C1 A Act]
+		displayFolder: YTD\Actuals\Overall and Fx
+		lineageTag: 4b88ddba-ce22-4745-b05c-28b3a0224467
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Actual PY' = [View F1 Q PY]
+		displayFolder: Full Year\Comparison
+		lineageTag: 738adf21-f9f8-4403-99fc-efe767e828ad
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Actual YYTD @Prior Year Fx' = [View C3 B Act @PY Fx]
+		displayFolder: YTD\Actuals and Comparison\Underlying and Fx
+		lineageTag: 1b7c582b-034e-480a-8e92-ceb8354f8c29
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Actual YTD @Forecast Fx' = [View C3 C Act @Fcst Fx]
+		displayFolder: YTD\Actuals and Comparison\Underlying and Fx
+		lineageTag: 141ae89f-1d43-41c4-9120-3e942ee36675
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Actual YTD @Plan Fx' = [View C3 D Act @Plan Fx]
+		displayFolder: YTD\Actuals and Comparison\Underlying and Fx
+		lineageTag: 8898e66c-d401-452d-8b9b-6a536645fa8e
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast TD YTG' = [View D1 P Act]
+		displayFolder: Full Year\Actuals
+		lineageTag: d7017424-5563-4aed-bbe2-92515f975c9c
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast BU YTG' = [View E1 P Act]
+		displayFolder: Full Year\Actuals
+		lineageTag: 36e3d218-1902-4d2d-a2ac-3d1bd618eaf4
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Plan FY' = [View D1 Q Pln]
+		displayFolder: Full Year\Comparison
+		lineageTag: 049b6172-7b72-4fd4-a853-c39007a43316
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Plan YTD' = [View C1 E Pln]
+		displayFolder: YTD\Comparison\Overall and Underlying
+		lineageTag: 2c0020d0-2a09-413e-b840-9d6f719125de
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Actual PYTD' = [View C1 B PY]
+		displayFolder: YTD\Comparison\Overall and Underlying
+		lineageTag: 2cbec707-3428-45f5-920d-228fc50a9042
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Forecast TD YTD' = [View C1 C Fcst TD]
+		displayFolder: YTD\Comparison\Overall and Underlying
+		lineageTag: 0643429f-8ba2-44e8-894e-4512e70c85fd
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Forecast BU YTD' = [View C1 D Fcts BU]
+		displayFolder: YTD\Comparison\Overall and Underlying
+		lineageTag: 3f23ed98-1b5a-4101-8216-dfb7460311ec
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Default], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast BU YTG vs Plan FY, #' = [View E1 R vs Pln]
+		displayFolder: Full Year\Variance\Forecast Bottom Up\Abs
+		lineageTag: c0e170b3-cbee-41c0-b1de-02a8423ee694
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast TD YTG vs Plan FY, #' = [View D1 R vs Pln]
+		displayFolder: Full Year\Variance\Forecast Top Down\Abs
+		lineageTag: b5927d8b-6172-4be7-877f-a73bd5d96a0f
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast TD YTG vs Actual PY, #' = [View F1 R vs PY]
+		displayFolder: Full Year\Variance\Forecast Top Down\Abs
+		lineageTag: e506bbc6-3ff5-4f04-a0c8-622c4146e228
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast BU YTG vs Actuals PY, #' = [View G1 R vs PY]
+		displayFolder: Full Year\Variance\Forecast Bottom Up\Abs
+		lineageTag: bd66ffa8-56c1-4f2e-924c-4a6bc0a2c15a
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast BU YTG vs Plan FY, %' = [View E1 S vs Pln, %]
+		displayFolder: Full Year\Variance\Forecast Bottom Up\Pct
+		lineageTag: 266010dc-8c1b-4a57-bdb8-f85c626fd962
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast BU YTG vs Actuals PY, %' = [View G1 S vs PY, %]
+		displayFolder: Full Year\Variance\Forecast Bottom Up\Pct
+		lineageTag: d9ebc3fd-aaca-4672-bfcc-17f08cfbecd8
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast TD YTG vs Actual PY, %' = [View F1 S vs PY, %]
+		displayFolder: Full Year\Variance\Forecast Top Down\Pct
+		lineageTag: 51077d4f-e323-40b9-b13c-d2d64039a2ab
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD + Forecast TD YTG vs Plan FY, %' = [View D1 S vs Pln, %]
+		displayFolder: Full Year\Variance\Forecast Top Down\Pct
+		lineageTag: eb44de9f-d539-469f-b251-f7770cee8c06
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Plan YTD Underlying, #' = [View C2 L vs Pln]
+		displayFolder: YTD\Variance\2_Underlying\Abs
+		lineageTag: dcca8bee-fb0a-4a44-9ac8-345fded9d428
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast TD YTD Underlying, #' = [View C2 J vs Fcst TD]
+		displayFolder: YTD\Variance\2_Underlying\Abs
+		lineageTag: fe1dab55-57b4-4ec4-abaf-a42ec613c73a
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast BU YTD Underlying, #' = [View C2 K vs Fcst BU]
+		displayFolder: YTD\Variance\2_Underlying\Abs
+		lineageTag: d55297db-911a-4ae5-a4fe-6825852b4a43
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Actual PYTD Underlying, #' = [View C2 I vs PY]
+		displayFolder: YTD\Variance\2_Underlying\Abs
+		lineageTag: 430d8f16-cc3c-4cad-9a43-e69da3c6b5ec
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Plan YTD Overall, #' = [View C1 J vs Pln]
+		displayFolder: YTD\Variance\1_Overall\Abs
+		lineageTag: bfa91aa2-ccfa-424d-bcab-c1fbf1c81972
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast TD YTD Overall, #' = [View C1 H vs Fcst TD]
+		displayFolder: YTD\Variance\1_Overall\Abs
+		lineageTag: 3e157441-e797-4b05-99ed-e25b8aa47b43
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast BU YTD Overall, #' = [View C1 I vs Fcst BU]
+		displayFolder: YTD\Variance\1_Overall\Abs
+		lineageTag: a6d1871d-b92a-4097-963b-cf254ecc82bf
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Actual PYTD Overall, #' = [View C1 G vs PY]
+		displayFolder: YTD\Variance\1_Overall\Abs
+		lineageTag: 1748a2a3-eb67-4539-98c1-4fb76b72947d
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Actual PYTD Fx, #' = [View C3 F vs PY]
+		displayFolder: YTD\Variance\3_Fx\Abs
+		lineageTag: ffa5538f-dab4-4dc9-b87f-fb333ca5ef43
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast BU YTD Fx, #' = [View C3 G vs Fcst]
+		displayFolder: YTD\Variance\3_Fx\Abs
+		lineageTag: b375464b-0fc2-46a3-bc73-f4819f5e8ef3
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast TD YTD Fx, #' = [View C3 G vs Fcst]
+		displayFolder: YTD\Variance\3_Fx\Abs
+		lineageTag: 8c8f92db-917b-4cdb-a49a-84db3a71210b
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Plan YTD Fx, #' = [View C3 H vs Pln]
+		displayFolder: YTD\Variance\3_Fx\Abs
+		lineageTag: 87b41998-c621-414d-846a-d3ae0d3ba8dd
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Abs], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Actual PYTD Overall, %' = [View C1 L vs PY, %]
+		displayFolder: YTD\Variance\1_Overall\Pct
+		lineageTag: 4ca5b3ca-98bc-4c77-8df2-115470ce0ea2
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast BU YTD Overall, %' = [View C1 N vs Fcst BU, %]
+		displayFolder: YTD\Variance\1_Overall\Pct
+		lineageTag: e6fe428e-d468-4681-8f85-3c9556e3a587
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast TD YTD Overall, %' = [View C1 M vs Fcst TD, %]
+		displayFolder: YTD\Variance\1_Overall\Pct
+		lineageTag: fac0e1cc-4c82-447d-b1cf-79f62cc20742
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Plan YTD Overall, %' = [View C1 O vs Pln, %]
+		displayFolder: YTD\Variance\1_Overall\Pct
+		lineageTag: 4fe8e750-446e-496a-9ffa-f87073b727cb
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Actual PYTD Underlying, %' = [View C2 N vs PY, %]
+		displayFolder: YTD\Variance\2_Underlying\Pct
+		lineageTag: 571dc1d9-a15b-42f5-9046-dcb47bbc1641
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast BU YTD Underlying, %' = [View C2 P vs Fcst BU, %]
+		displayFolder: YTD\Variance\2_Underlying\Pct
+		lineageTag: 1f370179-cfd7-4621-85d6-7e5fba67e6ef
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast TD YTD Underlying, %' = [View C2 O vs Fcst TD, %]
+		displayFolder: YTD\Variance\2_Underlying\Pct
+		lineageTag: c8811fac-3fbf-494c-a6ae-a53a37803758
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Plan YTD Underlying, %' = [View C2 Q vs Pln, %]
+		displayFolder: YTD\Variance\2_Underlying\Pct
+		lineageTag: 1d9c5d8f-16b4-4578-aef8-dc8eb1d186d9
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Actual PYTD Fx, %' = [View C3 J vs PY, %]
+		displayFolder: YTD\Variance\3_Fx\Pct
+		lineageTag: 9a11b6a4-619a-4d45-82ec-9bf64c66f9ff
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast BU YTD Fx, %' = [View C3 K vs Fcst, %]
+		displayFolder: YTD\Variance\3_Fx\Pct
+		lineageTag: dd1da1e8-173b-4c3d-83a5-710522995f89
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Forecast TD YTD Fx, %' = [View C3 K vs Fcst, %]
+		displayFolder: YTD\Variance\3_Fx\Pct
+		lineageTag: 762c5851-88ce-4c52-9025-29ff9013c704
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	measure '_Actual YTD @Actual Fx vs Plan YTD Fx, %' = [View C3 L vs Pln, %]
+		displayFolder: YTD\Variance\3_Fx\Pct
+		lineageTag: e55e413b-2eaa-4226-8123-5bd0a7e13b3c
+
+		formatStringDefinition = SELECTEDVALUE( Layout[Format_String_Variance_Per], "0;0-0;;@" )
+
+	partition Measures_Excel = m
+		mode: import
+		queryGroup: Measures
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

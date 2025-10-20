@@ -1,0 +1,67 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Measures
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup Dimensions
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup Fact
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup 'Parameters Fixed'
+
+	annotation PBI_QueryGroupOrder = 5
+
+queryGroup 'ENTER HERE'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Layout Calculations'
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation PBI_QueryOrder = ["Layout","Account","Ledger","Effective Date","Group Ownership","Measures_Hidden","Measures_Other","Posting date","Scenario","Currency","Other Non General Ledger Information","Legal Entity","Security Legal Entity","Measures_Excel","File Location Fixed","Select Measures Table","ENTER LOCATION OF EXCEL","Check accounts are allocated","Layout Base","Accountnumbers","Formatting","Layout Add Columns","Layout External","Layout Internal"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":[]}
+
+annotation BestPracticeAnalyzer_ExternalRuleFiles = ["https://raw.githubusercontent.com/microsoft/Analysis-Services/master/BestPracticeRules/BPARules.json"]
+
+ref table Layout
+ref table 'Group Ownership'
+ref table Measures_Hidden
+ref table Ledger
+ref table 'Effective Date'
+ref table 'Posting date'
+ref table Scenario
+ref table Account
+ref table Currency
+ref table 'Other Non General Ledger Information'
+ref table 'Legal Entity'
+ref table Measures_Other
+ref table 'Self-Service Measures'
+ref table Measures_Excel
+ref table 'Security Legal Entity'
+ref table 'Select Measures Table'
+ref table '__Field Paramater Self-Service Table Measures'
+ref table '__Field Paramater Decomposition Tree'
+
+ref role 'Legal Entity'
+
+ref cultureInfo en-US
+

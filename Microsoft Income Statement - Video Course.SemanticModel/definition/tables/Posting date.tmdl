@@ -1,0 +1,49 @@
+table 'Posting date'
+	lineageTag: 348b9fa5-4a60-42da-802f-013962c5d80c
+
+	column 'Posting date'
+		dataType: dateTime
+		isHidden
+		formatString: mm/dd/yyyy
+		lineageTag: 9c61d3f7-e205-4bfd-a384-a9fc52176668
+		summarizeBy: none
+		sourceColumn: Posting date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Working day group'
+		dataType: string
+		lineageTag: 86913ca6-c3af-49b2-959d-ecda603351fa
+		summarizeBy: none
+		sourceColumn: Working day group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Working Day Key'
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		lineageTag: 41e47094-77fd-4e41-b5cd-139bcc27beaf
+		summarizeBy: none
+		sourceColumn: Working Day Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Posting date' = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents(#"File Location Fixed" & "Posting Date.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Working Day Key", Int64.Type}, {"Posting date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

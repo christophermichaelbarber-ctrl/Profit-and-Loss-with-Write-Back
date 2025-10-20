@@ -1,0 +1,171 @@
+table Ledger
+	lineageTag: 99c2f35e-f5a5-49f1-a902-9bf80598cd81
+
+	column 'Account Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c833fcb8-b157-40fe-9b23-d3ea66fcd3b4
+		summarizeBy: none
+		sourceColumn: Account Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ownership Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3e52305e-9dbd-49ca-bb97-50bba2e9fcfa
+		summarizeBy: none
+		sourceColumn: Ownership Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Currency Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e48fd53f-4828-430a-86c7-fec61f7f3aeb
+		summarizeBy: none
+		sourceColumn: Currency Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: mm/dd/yyyy
+		lineageTag: 3b08421a-db5a-4660-9804-cc841f0a929a
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Working Day Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c18591f0-de29-4467-8e8d-b4fde7b047e0
+		summarizeBy: none
+		sourceColumn: Working Day Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal Entity Key'
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: c01e6706-7793-46f8-8e5d-7da0039990ca
+		summarizeBy: none
+		sourceColumn: Legal Entity Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit Less Debit @Global Fx'
+		dataType: double
+		isHidden
+		lineageTag: 688a3081-effb-46c1-a30a-147efe39fb52
+		summarizeBy: sum
+		sourceColumn: Credit Less Debit @Global Fx
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Credit Less Debit @PY Fx'
+		dataType: double
+		isHidden
+		lineageTag: b62f9703-9564-46ca-9bda-e3cd66204531
+		summarizeBy: sum
+		sourceColumn: Credit Less Debit @PY Fx
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Credit Less Debit @Fcst Fx'
+		dataType: double
+		isHidden
+		lineageTag: ff1a0aae-fc90-4ea7-891c-8b00d5297624
+		summarizeBy: sum
+		sourceColumn: Credit Less Debit @Fcst Fx
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Credit Less Debit @Plan Fx'
+		dataType: double
+		isHidden
+		lineageTag: 4ff6da0f-3390-430f-b608-dfc46889b770
+		summarizeBy: sum
+		sourceColumn: Credit Less Debit @Plan Fx
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Document ID'
+		dataType: string
+		lineageTag: 573a1fbf-4ede-4ba5-a3b5-665fd6324a8b
+		summarizeBy: none
+		sourceColumn: Document ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ledger = m
+		mode: import
+		queryGroup: Fact
+		source = ```
+				let
+				    Source = Csv.Document(File.Contents(#"File Location Fixed" & "Ledger.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type datetime}, {"Working Day Key", Int64.Type}, {"Account Key", Int64.Type}, {"Ownership Key", Int64.Type}, {"Legal Entity Key", Int64.Type}, {"Currency Key", Int64.Type}, {"Credit Less Debit @Global Fx Column", type number}, {"Credit Less Debit @PY Fx Column", type number}, {"Credit Less Debit @Fcst Fx Column", type number}, {"Credit Less Debit @Plan Fx Column", type number}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Credit Less Debit @Global Fx Column", "Credit Less Debit @Global Fx"}, {"Credit Less Debit @PY Fx Column", "Credit Less Debit @PY Fx"}, {"Credit Less Debit @Fcst Fx Column", "Credit Less Debit @Fcst Fx"}, {"Credit Less Debit @Plan Fx Column", "Credit Less Debit @Plan Fx"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns",-2,17,Replacer.ReplaceValue,{"Legal Entity Key"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Replaced Value", "Index", 1, 1, Int64.Type),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Index",{{"Index", type text}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Document ID", each if Text.Length([Index])=1 then 
+				"0000000" & [Index]
+				else 
+				
+				
+				if Text.Length([Index])=2 then 
+				"000000" & [Index]
+				else 
+				
+				
+				
+				if Text.Length([Index])=3 then 
+				"00000" & [Index]
+				else 
+				
+				
+				
+				if Text.Length([Index])=4 then 
+				"0000" & [Index]
+				else 
+				
+				
+				if Text.Length([Index])=5 then 
+				"000" & [Index]
+				else 
+				
+				
+				if Text.Length([Index])=6 then 
+				"00" & [Index]
+				else 
+				
+				
+				if Text.Length([Index])=7 then 
+				"0" & [Index]
+				else [Index]),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"Index"})
+				in
+				    #"Removed Columns"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

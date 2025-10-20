@@ -1,0 +1,57 @@
+table 'Other Non General Ledger Information'
+	isHidden
+	lineageTag: 6c4cf960-9454-4e0d-af46-3cb9ca4812a6
+
+	column 'Start of time period'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e2fc2fbe-874c-4211-a363-41ea2d419e65
+		summarizeBy: none
+		sourceColumn: Start of time period
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Time period'
+		dataType: string
+		lineageTag: 976d793f-afe9-445a-a982-7d30a4bd3818
+		summarizeBy: none
+		sourceColumn: Time period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calculation type'
+		dataType: string
+		lineageTag: 1ff244eb-ca46-4781-bb68-8973465d84d3
+		summarizeBy: none
+		sourceColumn: Calculation type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: decimal
+		isHidden
+		lineageTag: 6077fc57-4ef8-4af4-b069-a5c1953ecd85
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Other Non General Ledger Information' = m
+		mode: import
+		queryGroup: Fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents(#"File Location Fixed" & "Other Non General Ledger Information.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Start of time period", type date}, {"Time period", type text}, {"Calculation type", type text}, {"Value", Currency.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
